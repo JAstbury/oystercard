@@ -3,7 +3,11 @@ require 'oystercard'
 describe Oystercard do
   subject { described_class.new }
 
-  let(:station) { Station.new }
+  #let(:station) { Station.new }
+  #let(:station2) { Station.new }
+  let(:station) {double :station}
+  let(:station2) {double :station2}
+
 
   before do
     @min_fare = Oystercard::MINIMUM_FARE
@@ -38,7 +42,7 @@ describe Oystercard do
       end
 
       it "raises and error if oyster card empty" do
-        subject.touch_out
+        subject.touch_out(station2)
         expect{subject.touch_in(station)}.to raise_error "Card does not have minimum fare"
       end
 
@@ -48,11 +52,11 @@ describe Oystercard do
 
     end
 
-      describe "#touch_out" do
+      describe "#touch_out(station2)" do
 
         before do
           subject.touch_in(station)
-          subject.touch_out
+          subject.touch_out(station2)
         end
 
         it "changes oysetercard's journey status to false" do
@@ -60,12 +64,26 @@ describe Oystercard do
         end
 
       it "deducts fare when card is touched out" do
-        expect{subject.touch_out}.to change{subject.balance}.by(-@min_fare)
+        expect{subject.touch_out(station2)}.to change{subject.balance}.by(-@min_fare)
       end
 
       it "sets entry station to nil" do
         expect(subject.entry_station).to eq nil
       end
+  end
+
+  describe '#journey' do
+
+    it '#records the users journey history' do
+      subject.touch_in(station)
+      subject.touch_out(station2)
+      expect(subject.journey_history).to eq(station => station2)
+    end
+
+    it '#checks new card history is empty' do
+      expect(subject.journey_history).to eq({})
+    end
+
   end
 
 end
