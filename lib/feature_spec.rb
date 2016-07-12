@@ -3,8 +3,8 @@ require_relative 'oystercard'
 puts 'create a new card'
 puts oystercard = Oystercard.new
 
-#puts 'top-up card'
-#puts oystercard.top_up(5)
+puts 'top-up card'
+puts oystercard.top_up(5)
 
 puts 'check balance'
 puts oystercard.balance
@@ -20,7 +20,8 @@ puts oystercard.touch_in
 puts 'card taps out'
 puts oystercard.touch_out
 
-
+puts 'check balance'
+puts oystercard.balance
 
 
 
