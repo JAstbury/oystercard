@@ -8,6 +8,10 @@ describe Oystercard do
   it { is_expected.to respond_to :in_journey?}
 
 
+  before do
+    @min_fare = Oystercard::MINIMUM_FARE
+  end
+
   describe "#balance" do
     it "is expected to return a float" do
       expect(subject.balance).to eq(0)
@@ -43,13 +47,20 @@ describe Oystercard do
 
     describe "#touch_in" do
       it "changes oysetercard's journey status to true" do
+        subject.top_up(@min_fare)
         subject.touch_in
         expect(subject).to be_in_journey
       end
+
+      it "raises and error if oyster card empty" do
+        expect{subject.touch_in}.to raise_error "Card does not have minimum fare"
+      end
+
     end
 
       describe "#touch_in" do
         it "changes oysetercard's journey status to false" do
+          subject.top_up(@min_fare)
           subject.touch_in
           subject.touch_out
           expect(subject).not_to be_in_journey
