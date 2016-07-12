@@ -3,13 +3,18 @@ require 'oystercard'
 describe Oystercard do
   subject { described_class.new }
 
-  describe "balance" do
+  it { is_expected.to respond_to :touch_in}
+  it { is_expected.to respond_to :touch_out}
+  it { is_expected.to respond_to :in_journey?}
+
+
+  describe "#balance" do
     it "is expected to return a float" do
       expect(subject.balance).to eq(0)
     end
   end
 
-  describe "top_up" do
+  describe "#top_up" do
     it "is expected to top up the oystercard by a specified amount" do
       subject.top_up(5)
       expect{subject.deduct(3)}.to change{ subject.balance }.by(-3)
@@ -22,11 +27,32 @@ describe Oystercard do
     end
   end
 
-  describe "deduct" do
+  describe "#deduct" do
     it "is expected to deduct the oysetercard by a specified amount" do
       subject.top_up(5)
       subject.deduct(1)
       expect(subject.balance).to eq(4)
+    end
+  end
+
+  describe "#in_journey?" do
+    it "checks if oysetercard is in journey" do
+      expect(subject.in_journey?).to be(false)
+    end
+  end
+
+    describe "#touch_in" do
+      it "changes oysetercard's journey status to true" do
+        subject.touch_in
+        expect(subject).to be_in_journey
+      end
+    end
+
+      describe "#touch_in" do
+        it "changes oysetercard's journey status to false" do
+          subject.touch_in
+          subject.touch_out
+          expect(subject).not_to be_in_journey
     end
   end
 
