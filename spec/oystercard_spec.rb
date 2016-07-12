@@ -3,11 +3,8 @@ require 'oystercard'
 describe Oystercard do
   subject { described_class.new }
 
-  #let(:station) { Station.new }
-  #let(:station2) { Station.new }
   let(:station) {double :station}
   let(:station2) {double :station2}
-
 
   before do
     @min_fare = Oystercard::MINIMUM_FARE

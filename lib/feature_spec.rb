@@ -1,16 +1,17 @@
 require_relative 'oystercard'
+require_relative 'station'
 
 puts 'create a new card'
 puts oystercard = Oystercard.new
 
 puts 'create a new station'
-puts station1 = Station.new
+puts station1 = Station.new("Waterloo", 1)
 
 puts 'create a new station'
-puts station2 = Station.new
+puts station2 = Station.new("Sidcup", 5)
 
 puts 'create a new station'
-puts station3 = Station.new
+puts station3 = Station.new("Kingston", 5)
 
 puts 'top-up card'
 puts oystercard.top_up(5)
