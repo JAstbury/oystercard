@@ -1,11 +1,9 @@
 class Journey
-  DEFAULT_ENTRY = nil
-  PENALTY_FARE = 6
-  attr_reader :entry_station
-  attr_accessor :journey_history, :exit_station
+  attr_reader :entry_station, :exit_station
 
-  def initialize(station = DEFAULT_ENTRY)
+  def initialize(station = nil)
     @entry_station = station
+    @exit_station = nil
   end
 
   def complete?
@@ -13,11 +11,10 @@ class Journey
   end
 
   def fare
-    complete? ? Oystercard::MINIMUM_FARE : PENALTY_FARE
+    complete? ? Oystercard::MINIMUM_FARE : Oystercard::PENALTY_FARE
   end
 
   def finish(station)
     @exit_station = station
-    self
   end
 end

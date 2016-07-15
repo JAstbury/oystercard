@@ -2,19 +2,15 @@ require 'journey'
 
 describe Journey do
 
-  let(:journey) { Journey.new }
+  subject { described_class.new }
   let(:station) { double :station, zone: 1 }
 
   it 'knows when a journey is not complete' do
-    expect(journey).not_to be_complete
+    expect(subject).not_to be_complete
   end
 
   it 'has a penalty fare by default' do
-    expect(journey.fare).to eq Journey::PENALTY_FARE
-  end
-
-  it 'returns itself when finishing a journey' do
-    expect(journey.finish(station)).to eq journey
+    expect(subject.fare).to eq Oystercard::PENALTY_FARE
   end
 
   context 'if there is an entry station' do
@@ -25,7 +21,7 @@ describe Journey do
     end
 
     it 'returns a penalty fare if no exit given' do
-      expect(subject.fare).to eq Journey::PENALTY_FARE
+      expect(subject.fare).to eq Oystercard::PENALTY_FARE
     end
 
     context 'given an exit station' do
@@ -45,6 +41,5 @@ describe Journey do
 
     end
   end
-
 
 end

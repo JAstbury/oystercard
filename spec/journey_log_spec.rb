@@ -9,25 +9,23 @@ describe JourneyLog do
 
   describe '#start' do
     it 'should start a new journey with an entry station' do
-      expect(journey_class).to receive(:new).with(entry_station: station)
+      expect(journey_class).to receive(:new).with(station)
       subject.start(station)
     end
 
     it 'records a journey' do
       allow(journey_class).to receive(:new).and_return journey
       subject.start(station)
-      expect(subject.journey_history).to include journey
+      expect(subject.journey).to eq journey
     end
   end
-
- describe '#finish' do
-   it 'should finish a journey with an exit station' do
-     allow(journey_class).to receive(:new).and_return journey
-     allow(journey).to receive(:finish).and_return journey
-     subject.start(station)
-     subject.finish(station)
-     expect(subject.current_journey.exit_station).to eq station
-
-   end
- end
+ 
+ # describe '#finish' do
+ #   it 'record a hourney on finish' do
+ #     station = Station.new
+ #     subject.start(station)
+ #     subject.finish(station)
+ #     expect(subject.log).to include station
+ #   end
+ # end
 end
